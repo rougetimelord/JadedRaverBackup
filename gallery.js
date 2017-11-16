@@ -22,6 +22,10 @@ var setup = function(){
     }
     next.addEventListener('click', function(){i += (i < 68) ? 1 : 0; update()})
     prev.addEventListener('click', function(){i -= (i > 0) ? 1 : 0; update()})
+    document.addEventListener('keydown', function(e){
+        if(e.keyCode == 39){i += (i < 68) ? 1 : 0; update()};
+        if(e.keyCode == 37){i -= (i > 0) ? 1 : 0; update()};
+    })
     update();
 }
 

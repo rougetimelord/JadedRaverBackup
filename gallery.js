@@ -6,7 +6,6 @@ var setup = function(){
     var i = storage.start;
     cont = document.getElementById('container');
     var update = function(){
-        console.log(i != 0 && i != 68);
         if(i == 0){
             l.classList.add('hid');
         }
@@ -17,7 +16,7 @@ var setup = function(){
             l.classList.remove('hid');
             r.classList.remove('hid');
         }
-        swap(i);
+        xhr(i);
         storage.update = i;
     }
     next.addEventListener('click', function(){i += (i < 68) ? 1 : 0; update()})
@@ -27,18 +26,6 @@ var setup = function(){
         if(e.keyCode == 37){i -= (i > 0) ? 1 : 0; update()};
     })
     update();
-}
-
-var swap = function(index){
-    var old = document.getElementsByTagName('img')[0], new_img = document.createElement('img');
-    var res = pad(index);
-    new_img.src = "./content/strip" + res + '.gif';
-    if(old){
-        cont.removeChild(old);
-    }
-    cont.classList.add('hid');
-    cont.appendChild(new_img);
-    setTimeout(function(){cont.classList.remove('hid')}, 200);
 }
 
 var  pad = function(number) {
@@ -53,6 +40,20 @@ var storage = {
     set update(i){
         localStorage.setItem('index', i);
     }
+}
+
+var xhr = i =>{
+    let req = new XMLHttpRequest();
+    req.open('GET', './content/strip' + pad(i) + '.gif')
+    req.responseType = 'blob';
+    req.onload = loaded;
+    req.send(null);
+}
+
+var loaded = e => {
+    let blob = URL.createObjectURL(e.target.response);
+    let img = document.getElementById('img')
+    img.src = blob;
 }
 
 document.addEventListener("DOMContentLoaded", setup)

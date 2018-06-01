@@ -24,16 +24,13 @@ i {
   i:active, i:hover {
     border-color: #27fff4; }
 
-.hid {
-  opacity: 0;
-  pointer-events: none; }
-
 .click {
   cursor: pointer; }
 
 img {
-  max-width: 100%;
-  height: auto; }
+  max-width: 500%;
+  height: auto;
+  width: 45vw; }
 
 .center, #container, #title {
   position: fixed;
@@ -43,8 +40,7 @@ img {
 #container {
   top: 50%;
   height: auto;
-  transition: opacity .2s linear;
-  max-width: 70%;
+  max-width: 50vw;
   z-index: 1; }
 
 #title {

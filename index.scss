@@ -11,29 +11,31 @@ i {
     display: inline-block;
     padding: .75em;
     position: fixed;
-    top: 50%;
+    top: 50vh;
     transform: translate(-50%, -50%);
     transition: opacity .5s linear;
     opacity: 1;
     &.right{
-        right: 10%;
+        right: 5%;
         transform: rotate(-45deg);
     }
     &.left{
-        left: 10%;
+        left: 5%;
         transform: rotate(135deg);
     }
-    &:active, &:hover{
+    &:hover{
         border-color: #27fff4;
     }
+    &:active{
+        border-color: #168e88;
+    }
+}
+#img{
+    max-width: 95vw;
+    height: auto;
 }
 .click{
     cursor: pointer;
-}
-img{
-    max-width: 500%;
-    height: auto;
-    width: 45vw;
 }
 .center{
     position: fixed;
@@ -44,11 +46,25 @@ img{
     @extend .center;
     top: 50%;
     height: auto;
-    max-width: 50vw;
+    max-width: 95vw;
     z-index: 1;
 }
 #title{
     @extend .center;
     top: 15%;
     font-size: 3em;
+}
+.hid{
+    visibility: hidden;
+}
+@media screen and (min-width: 320px) and (max-width: 768px) and (orientation: portrait){
+    i{
+        top: 80vh;
+        &.right{
+            right: 25%;
+        }
+        &.left{
+            left: 25%;
+        }
+    }
 }

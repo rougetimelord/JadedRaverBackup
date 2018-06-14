@@ -1,11 +1,9 @@
-var cont;
-var setup = function(){
+var setup = () =>{
     var next = document.getElementById('next');
     var prev = document.getElementById('prev');
     var l = document.getElementsByClassName('left')[0], r = document.getElementsByClassName('right')[0];
     var i = storage.start;
-    cont = document.getElementById('container');
-    var update = function(){
+    var update = () =>{
         if(i == 0){
             l.classList.add('hid');
         }
@@ -19,18 +17,18 @@ var setup = function(){
         xhr(i);
         storage.update = i;
     }
-    next.addEventListener('click', function(){i += (i < 68) ? 1 : 0; update()})
-    prev.addEventListener('click', function(){i -= (i > 0) ? 1 : 0; update()})
-    document.addEventListener('keydown', function(e){
+    next.addEventListener('click', () =>{i += (i < 68) ? 1 : 0; update()})
+    prev.addEventListener('click', () =>{i -= (i > 0) ? 1 : 0; update()})
+    document.addEventListener('keydown', e =>{
         if(e.keyCode == 39){i += (i < 68) ? 1 : 0; update()};
         if(e.keyCode == 37){i -= (i > 0) ? 1 : 0; update()};
     })
     update();
 }
 
-var  pad = function(number) {
-    if (number<=999) { number = ("00"+number).slice(-3); }
-    return number;
+var  pad = n =>{
+    if (n<=999) { n = ("00"+n).slice(-3); }
+    return n;
   }
 
 var storage = {
@@ -50,7 +48,7 @@ var xhr = i =>{
     req.send(null);
 }
 
-var loaded = e => {
+var loaded = e =>{
     let blob = URL.createObjectURL(e.target.response);
     let img = document.getElementById('img')
     img.src = blob;

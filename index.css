@@ -28,6 +28,7 @@ i {
 
 #img {
   max-width: 95vw;
+  min-width: 40vw;
   height: auto; }
 
 .click {
@@ -45,8 +46,8 @@ i {
   z-index: 1; }
 
 #title {
-  top: 15%;
-  font-size: 3em; }
+  top: 12vh;
+  font-size: 2.5em; }
 
 .hid {
   visibility: hidden; }
@@ -57,4 +58,6 @@ i {
     i.right {
       right: 25%; }
     i.left {
-      left: 25%; } }
+      left: 25%; }
+  #title {
+    top: 15vh; } }

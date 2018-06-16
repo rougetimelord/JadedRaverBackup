@@ -13,8 +13,7 @@ i {
     position: fixed;
     top: 50vh;
     transform: translate(-50%, -50%);
-    transition: opacity .5s linear;
-    opacity: 1;
+    z-index: 2;
     &.right{
         right: 5%;
         transform: rotate(-45deg);
@@ -30,18 +29,25 @@ i {
         border-color: #1cbcb4;
     }
 }
-#img{
-    max-width: 95vw;
-    min-width: 40vw;
-    height: auto;
-}
 .click{
+    transition: opacity .3s linear .1s;
+    opacity: 1;
     cursor: pointer;
+}
+.hid{
+    opacity: 0;
+    cursor: default;
 }
 .center{
     position: fixed;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+#title{
+    @extend .center;
+    top: 12vh;
+    font-size: 2.5em;
+    z-index: 0;
 }
 #container{
     @extend .center;
@@ -50,15 +56,12 @@ i {
     max-width: 95vw;
     z-index: 1;
 }
-#title{
-    @extend .center;
-    top: 12vh;
-    font-size: 2.5em;
+#img{
+    max-width: 95vw;
+    min-width: 40vw;
+    height: auto;
 }
-.hid{
-    visibility: hidden;
-}
-@media screen and (min-width: 320px) and (max-width: 768px) and (orientation: portrait){
+@media screen and (min-width: 320px) and (max-width: 768px){
     i{
         top: 80vh;
         &.right{

@@ -1,35 +1,48 @@
 var setup = () =>{
-    var next = document.getElementById('next');
-    var prev = document.getElementById('prev');
-    var l = document.getElementsByClassName('left')[0], r = document.getElementsByClassName('right')[0];
-    var i = storage.start;
-    var update = () =>{
+    let next = document.getElementById('next'), prev = document.getElementById('prev'), img = document.getElementById('img');
+    let i = storage.start;
+    let pad = n =>{
+        return (n <= 999) ? ('00'+n).slice(-3) : n.toString();
+    };
+    let loaded = e =>{
+        let blob = URL.createObjectURL(e.target.response);
+        img.src = blob;
+    };
+    let xhr = i =>{
+        let req = new XMLHttpRequest();
+        req.open('GET', './content/strip' + pad(i) + '.gif');
+        req.responseType = 'blob';
+        req.onload = loaded;
+        req.send(null);
+    };
+    let update = () =>{
         if(i == 0){
-            l.classList.add('hid');
+            prev.classList.add('hid');
         }
         else if(i == 68){
-            r.classList.add('hid');
+            next.classList.add('hid');
         }
         else{
-            l.classList.remove('hid');
-            r.classList.remove('hid');
+            prev.classList.remove('hid');
+            next.classList.remove('hid');
         }
         xhr(i);
         storage.update = i;
-    }
-    next.addEventListener('click', () =>{i += (i < 68) ? 1 : 0; update()})
-    prev.addEventListener('click', () =>{i -= (i > 0) ? 1 : 0; update()})
+    };
+    next.addEventListener('click', () =>{i += (i < 68) ? 1 : 0; update();});
+    prev.addEventListener('click', () =>{i -= (i > 0) ? 1 : 0; update();});
     document.addEventListener('keydown', e =>{
-        if(e.keyCode == 39){i += (i < 68) ? 1 : 0; update()};
-        if(e.keyCode == 37){i -= (i > 0) ? 1 : 0; update()};
-    })
+        if(e.keyCode == 39){i += (i < 68) ? 1 : 0; update();}
+        if(e.keyCode == 37){i -= (i > 0) ? 1 : 0; update();}
+    });
+    if(window.TouchEvent){
+        let touch = e => {
+            e.preventDefault();
+        };
+        img.addEventListener('touchstart'. touch, false);
+    }
     update();
-}
-
-var  pad = n =>{
-    if (n<=999) { n = ("00"+n).slice(-3); }
-    return n;
-  }
+};
 
 var storage = {
     get start() {
@@ -38,20 +51,6 @@ var storage = {
     set update(i){
         localStorage.setItem('index', i);
     }
-}
+};
 
-var xhr = i =>{
-    let req = new XMLHttpRequest();
-    req.open('GET', './content/strip' + pad(i) + '.gif')
-    req.responseType = 'blob';
-    req.onload = loaded;
-    req.send(null);
-}
-
-var loaded = e =>{
-    let blob = URL.createObjectURL(e.target.response);
-    let img = document.getElementById('img')
-    img.src = blob;
-}
-
-document.addEventListener("DOMContentLoaded", setup)
+document.addEventListener('DOMContentLoaded', setup);

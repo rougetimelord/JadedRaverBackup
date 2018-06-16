@@ -38,8 +38,10 @@ var setup = () =>{
     if(window.TouchEvent){
         let touch = e => {
             e.preventDefault();
+            i += (i < 68) ? 1 : 0;
+            update();
         };
-        img.addEventListener('touchstart'. touch, false);
+        img.addEventListener('touchstart', touch, false);
     }
     update();
 };

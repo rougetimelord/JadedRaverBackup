@@ -1,4 +1,5 @@
 var setup = () =>{
+    let blobs = {};
     let next = document.getElementById('next'), prev = document.getElementById('prev'), img = document.getElementById('img');
     let i = storage.start;
     let pad = n =>{
@@ -6,6 +7,7 @@ var setup = () =>{
     };
     let loaded = e =>{
         let blob = URL.createObjectURL(e.target.response);
+        blobs[i] = blob;
         img.src = blob;
     };
     let xhr = i =>{
@@ -26,7 +28,7 @@ var setup = () =>{
             prev.classList.remove('hid');
             next.classList.remove('hid');
         }
-        xhr(i);
+        (blobs[i]) ? img.src = blobs[i] : xhr(i);
         storage.update = i;
     };
     next.addEventListener('click', () =>{i += (i < 68) ? 1 : 0; update();});
@@ -37,11 +39,10 @@ var setup = () =>{
     });
     if(window.TouchEvent){
         let touch = e => {
-            e.preventDefault();
             i += (i < 68) ? 1 : 0;
             update();
         };
-        img.addEventListener('touchstart', touch, false);
+        img.addEventListener('touchstart', touch, {capture: false, passive: true});
     }
     update();
 };

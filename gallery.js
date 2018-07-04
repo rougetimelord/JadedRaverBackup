@@ -49,7 +49,7 @@ var setup = () =>{
 
 var storage = {
     get start() {
-        return (localStorage.getItem('index')) ? parseInt(localStorage.getItem('index')) : 0;
+        return (localStorage.getItem('index')) ? parseInt(localStorage.getItem('index'), 10) : 0;
     },
     set update(i){
         localStorage.setItem('index', i);

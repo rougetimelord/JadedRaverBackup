@@ -1,7 +1,7 @@
 var setup = () =>{
     let blobs = {};
     let next = document.getElementById('next'), prev = document.getElementById('prev'), img = document.getElementById('img');
-    let i = storage.start;
+    let i = storage_mngr.start;
     let pad = n =>{
         return (n <= 999) ? ('00'+n).slice(-3) : n.toString();
     };
@@ -12,7 +12,7 @@ var setup = () =>{
     };
     let xhr = i =>{
         let req = new XMLHttpRequest();
-        req.open('GET', './content/strip' + pad(i) + '.gif');
+        req.open('GET', './content/strip' + pad(i) + '.png');
         req.responseType = 'blob';
         req.onload = loaded;
         req.send(null);
@@ -29,7 +29,7 @@ var setup = () =>{
             next.classList.remove('hid');
         }
         (blobs[i]) ? img.src = blobs[i] : xhr(i);
-        storage.update = i;
+        storage_mngr.update = i;
     };
     next.addEventListener('click', () =>{i += (i < 68) ? 1 : 0; update();});
     prev.addEventListener('click', () =>{i -= (i > 0) ? 1 : 0; update();});
@@ -47,7 +47,7 @@ var setup = () =>{
     update();
 };
 
-var storage = {
+var storage_mngr = {
     get start() {
         return (localStorage.getItem('index')) ? parseInt(localStorage.getItem('index'), 10) : 0;
     },
